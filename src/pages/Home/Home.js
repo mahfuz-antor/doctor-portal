@@ -1,10 +1,16 @@
 import React from "react";
 import Banner from "./Banner";
+import Info from "./Info";
+import InfoCard from "./InfoCard";
 
 const Home = () => {
   return (
     <>
-      <Banner />
+      <div className="relative">
+        <Banner />
+        {/* <InfoCard /> */}
+        <Info></Info>
+      </div>
     </>
   );
 };
