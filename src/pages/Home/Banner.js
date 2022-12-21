@@ -10,7 +10,7 @@ const Banner = () => {
           background: `url(${bgChair})`,
           backgroundSize: "cover",
         }}
-        className="hero min-h-screen px-12 border border-primary"
+        className="hero min-h-screen px-12"
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img
