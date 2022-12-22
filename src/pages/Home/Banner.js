@@ -1,6 +1,7 @@
 import React from "react";
 import chair from "../../assets/images/chair.png";
 import bgChair from "../../assets/images/bg.png";
+import PrimaryButton from "../Common/PrimaryButton";
 
 const Banner = () => {
   return (
@@ -18,7 +19,7 @@ const Banner = () => {
             className="max-w-sm rounded-lg shadow-2xl"
             alt="chair pictures"
           />
-          <div className="">
+          <div>
             <h1 className="text-5xl font-bold text-accent">
               Your New Smile Starts <br /> Here
             </h1>
@@ -27,9 +28,7 @@ const Banner = () => {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <button className="btn btn-primary text-white font-bold bg-gradient-to-r from-secondary to-primary">
-              Get Started
-            </button>
+            <PrimaryButton>Get Started</PrimaryButton>
           </div>
         </div>
       </div>

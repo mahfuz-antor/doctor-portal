@@ -4,8 +4,33 @@ import fluoride from "../../assets/images/fluoride.png";
 import cavity from "../../assets/images/cavity.png";
 import whitening from "../../assets/images/whitening.png";
 import treatment from "../../assets/images/treatment.png";
+import PrimaryButton from "../Common/PrimaryButton";
 
 const Services = () => {
+  const services = [
+    {
+      _id: 1,
+      img: fluoride,
+      title: "Fluoride Treatment",
+      description:
+        "Lorem Ipsum is simply dummy printing and typesetting indust Ipsum has been the",
+    },
+    {
+      _id: 2,
+      img: cavity,
+      title: "Cavity Filling",
+      description:
+        "Lorem Ipsum is simply dummy printing and typesetting indust Ipsum has been the",
+    },
+    {
+      _id: 3,
+      img: whitening,
+      title: "Teeth Whitening",
+      description:
+        "Lorem Ipsum is simply dummy printing and typesetting indust Ipsum has been the",
+    },
+  ];
+
   return (
     <>
       <div className="py-40">
@@ -15,14 +40,18 @@ const Services = () => {
         <h2 className="text-accent text-center text-2xl">
           Services We Provide
         </h2>
-        <div className="grid grid-cols-3 gap-10 pt-5 px-5">
-          <ServiceCard title="Fluoride Treatment" img={fluoride}></ServiceCard>
-          <ServiceCard title="Cavity Filling" img={cavity}></ServiceCard>
-          <ServiceCard title="Teeth Whitening" img={whitening}></ServiceCard>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pt-5 px-5">
+          {services.map((service) => (
+            <ServiceCard key={service._id} service={service}></ServiceCard>
+          ))}
         </div>
-        <div className="flex justify-center items-center gap-10 px-40 pt-10">
+        <div className="grid grid-cols-1 items-center sm:grid-cols-1 md:grid-cols-2 gap-10 px-10 md:px-10 lg:px-28 pt-10">
           <div className="w-full mx-auto">
-            <img className="w-9/12 mx-auto rounded-lg" src={treatment} alt="" />
+            <img
+              className="sm:w-full md:w-full lg:w-9/12 mx-auto rounded-lg"
+              src={treatment}
+              alt=""
+            />
           </div>
           <div className="w-full">
             <h2 className="text-4xl text-accent font-bold">
@@ -36,9 +65,7 @@ const Services = () => {
               here', making it look like readable English. Many desktop
               publishing packages and web page
             </p>
-            <button className="btn btn-primary text-white font-bold bg-gradient-to-r from-secondary to-primary">
-              Get Started
-            </button>
+            <PrimaryButton>Get Started</PrimaryButton>
           </div>
         </div>
       </div>
