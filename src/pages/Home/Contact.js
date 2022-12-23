@@ -22,17 +22,17 @@ const Contact = () => {
           </h2>
           <div className="pt-4">
             <input
-              className="w-1/4 h-10 rounded-lg mx-auto bg-white block pl-3"
+              className="w-5/6 md:w-2/4 lg:w-1/3 h-10 rounded-lg mx-auto bg-white block pl-3"
               type="email"
               placeholder="Email address"
             />
             <input
-              className="w-1/4 h-10 rounded-lg mx-auto bg-white block my-4 pl-3"
+              className="w-5/6 md:w-2/4 lg:w-1/3 h-10 rounded-lg mx-auto bg-white block my-4 pl-3"
               type="text"
               placeholder="Subject"
             />
             <textarea
-              className="w-1/4 block bg-white mx-auto rounded-lg p-3"
+              className="w-5/6 md:w-2/4 lg:w-1/3 block bg-white mx-auto rounded-lg p-3"
               placeholder="Write massage"
               name="massage"
               id=""

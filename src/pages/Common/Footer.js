@@ -11,8 +11,8 @@ const Footer = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="py-10 flex justify-between items-start px-20">
-          <div>
+        <div className="py-10 sm:block md:flex lg:flex justify-between items-start px-20">
+          <div className="">
             <h4 className="text-md font-semibold uppercase text-gray-500">
               Services
             </h4>
@@ -21,7 +21,7 @@ const Footer = () => {
             <p>Weekly Checkup</p>
             <p>Deep Checkup</p>
           </div>
-          <div>
+          <div className="py-10 md:py-0 lg:py-0">
             <h4 className="text-md font-semibold uppercase text-gray-500">
               Oral Health
             </h4>
@@ -29,7 +29,7 @@ const Footer = () => {
             <p>Cavity Filling</p>
             <p>Teeth Whitening</p>
           </div>
-          <div>
+          <div className="">
             <h4 className="text-md font-semibold uppercase text-gray-500">
               Our Address
             </h4>
