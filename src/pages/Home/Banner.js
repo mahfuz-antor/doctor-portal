@@ -13,7 +13,7 @@ const Banner = () => {
         }}
         className="hero min-h-screen px-12"
       >
-        <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero-content gap-10 flex-col lg:flex-row-reverse">
           <img
             src={chair}
             className="max-w-sm rounded-lg shadow-2xl"

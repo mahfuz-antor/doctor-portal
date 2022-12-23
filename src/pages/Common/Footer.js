@@ -37,7 +37,7 @@ const Footer = () => {
           </div>
         </div>
         <p className="py-10 font-semibold text-center">
-          &#169; Doctor Portal {year}
+          Copyright &#169; {year} All right reserved by Doctor Portal
         </p>
       </section>
     </>
