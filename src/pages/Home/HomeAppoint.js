@@ -8,7 +8,11 @@ const HomeAppoint = () => {
     <>
       <section
         className="flex justify-center items-center lg:grid-cols-2 gap-10 px-8 md:px-28 lg:px-28 my-10"
-        style={{ backgroundImage: `url(${bg})` }}
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+        }}
       >
         <div className="flex-1 hidden lg:block">
           <img className="-mt-[130px]" src={doctor} alt="doctor" />
