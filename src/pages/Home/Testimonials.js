@@ -34,7 +34,7 @@ const Testimonials = () => {
     <>
       <section className="py-10">
         <div className="flex justify-between items-center px-5">
-          <div className="">
+          <div>
             <h6 className="text-secondary text-lg font-bold">Testimonial</h6>
             <h2 className="text-3xl font-semibold">What Our Patients Says</h2>
           </div>

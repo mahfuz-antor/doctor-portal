@@ -1,7 +1,7 @@
 import React from "react";
-import PrimaryButton from "../Common/PrimaryButton";
+import BookingModal from "./BookingModal";
 
-const AvailableService = ({ service }) => {
+const AvailableService = ({ service, setTreatment }) => {
   const { name, slots } = service;
   return (
     <>
@@ -21,12 +21,14 @@ const AvailableService = ({ service }) => {
           {slots.length > 1 ? "spaces available" : "space available"}
         </p>
         <div className="text-center pt-3">
-          <button
+          <label
             disabled={slots.length === 0}
+            onClick={() => setTreatment(service)}
+            htmlFor="booking-modal"
             className="btn btn-primary text-white font-bold bg-gradient-to-r from-secondary to-primary"
           >
             Book Appointment
-          </button>
+          </label>
         </div>
       </section>
     </>
