@@ -1,17 +1,18 @@
 import { format } from "date-fns";
 import React, { useRef, useState } from "react";
 
-const BookingModal = ({ date, treatment }) => {
+const BookingModal = ({ date, treatment, setTreatment }) => {
+  // state for storing data
   const { name, slots } = treatment;
   const userName = useRef(null);
   const userEmail = useRef(null);
   const userPhone = useRef(null);
   const [userData, setUserData] = useState([]);
 
+  // handle function here
   const handleSubmit = (event) => {
     event.preventDefault();
     const slot = event.target.slot.value;
-    console.log(slot, date, name);
     setUserData({
       treatmentName: name,
       date: date,
@@ -20,6 +21,9 @@ const BookingModal = ({ date, treatment }) => {
       email: userEmail.current.value,
       phone: userPhone.current.value,
     });
+    userName.current.value = null;
+    userEmail.current.value = null;
+    userPhone.current.value = null;
   };
   console.log(userData, "userData from state");
   return (
