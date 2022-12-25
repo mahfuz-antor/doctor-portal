@@ -32,7 +32,7 @@ const Contact = () => {
               placeholder="Subject"
             />
             <textarea
-              className="w-5/6 md:w-2/4 lg:w-1/3 block mx-auto rounded-lg bg-white focus:outline-white p -3"
+              className="w-5/6 md:w-2/4 lg:w-1/3 block mx-auto rounded-lg bg-white focus:outline-white p-3"
               placeholder="Write massage"
               name="massage"
               id=""
