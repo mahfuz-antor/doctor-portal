@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import auth from "../../firebase.init";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import Loading from "../Common/Loading";
 
 const Login = () => {
   const [getData, setGetData] = useState({});
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  if (user) {
-    console.log(user);
+  // sign in with Google
+  const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+  // sign in with Email and Password
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  if (gUser) {
+    console.log(gUser);
   }
 
   const {
@@ -15,9 +23,24 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => setGetData(data);
+  const onSubmit = (data) => {
+    signInWithEmailAndPassword(data.Email, data.Password);
+  };
 
-  console.log(getData, "getting state data");
+  let signInError = "";
+
+  if (error || gError) {
+    signInError = (
+      <p className="text-sm text-red-500">
+        {error?.message || gError?.message}
+      </p>
+    );
+    return signInError;
+  }
+  if (loading || gLoading) {
+    return <Loading></Loading>;
+  }
+
   return (
     <>
       <div className="px-12 h-screen flex justify-center items-center">
@@ -92,6 +115,7 @@ const Login = () => {
               className="btn btn-secondary text-white w-full mx-auto"
             />
           </form>
+          {signInError}
           <div className="flex justify-center pt-5 gap-5">
             <p className="text-sm">New to doctor portal?</p>
             <p className="text-sm text-primary">Create new account</p>
