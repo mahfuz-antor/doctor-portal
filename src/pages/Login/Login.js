@@ -4,12 +4,11 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const [passWarning, setPassWarning] = useState("");
+  const [getData, setGetData] = useState({});
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   if (user) {
     console.log(user);
   }
-  const [getData, setGetData] = useState({});
 
   const {
     register,
@@ -17,16 +16,6 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => setGetData(data);
-
-  useEffect(() => {
-    if (errors?.Password) {
-      setPassWarning(
-        "Type at least a digit, a uppercase and a lowercase. between 8 - 32"
-      );
-    } else if (!errors?.Password) {
-      setPassWarning("");
-    }
-  }, [errors?.Password]);
 
   console.log(getData, "getting state data");
   return (
@@ -42,41 +31,60 @@ const Login = () => {
               <span className="text-md">Email</span>
               <input
                 {...register("Email", {
-                  required: true,
-                  pattern: /^\S+@\S+$/i,
+                  required: {
+                    value: true,
+                    message: "Email is required!",
+                  },
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Type valid email address!",
+                  },
                 })}
                 type="email"
                 placeholder="Email Address"
                 className="input block input-bordered input-secondary w-full mx-auto my-2"
               />
+              {errors?.Email?.type === "required" && (
+                <span className="text-sm text-red-500">
+                  {errors?.Email?.message}
+                </span>
+              )}
+              {errors?.Email?.type === "pattern" && (
+                <span className="text-sm text-red-500">
+                  {errors?.Email?.message}
+                </span>
+              )}
             </label>
             <label htmlFor="password">
               <span className="text-md">Password</span>
-              {/* <input
-                type="password"
-                name="password"
-                placeholder="Type password"
-                {...register("Password", {
-                  required: true,
-                  minLength: 6,
-                  maxLength: 20,
-                  pattern: /^\S+@\S+$/i,
-                })}
-                className="input block input-bordered input-secondary w-full mx-auto"
-              /> */}
               <input
                 type="password"
                 placeholder="Password"
                 {...register("Password", {
-                  required: true,
-                  pattern: /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9]{8,32}$/,
+                  required: {
+                    value: true,
+                    message: "Password is required!",
+                  },
+                  pattern: {
+                    value: /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9]{6,32}$/,
+                    message:
+                      "Must be 6 character. At least a digit, a uppercase and a lowercase letter",
+                  },
                 })}
                 className="input block input-bordered input-secondary w-full mx-auto my-2"
               />
-              <span id="password" className="text-sm text-red-500 block">
-                {passWarning}
-              </span>
-              <span className="text-sm">Forget Password? </span>
+              {errors?.Password?.type === "required" && (
+                <span id="password" className="text-sm text-red-500 block">
+                  {errors?.Password?.message}
+                </span>
+              )}
+              {errors?.Password?.type === "pattern" && (
+                <span id="password" className="text-sm text-red-500 block">
+                  {errors?.Password?.message}
+                </span>
+              )}
+
+              <span className="text-sm">Forgot Password? </span>
             </label>
             <input
               type="submit"
@@ -84,24 +92,6 @@ const Login = () => {
               className="btn btn-secondary text-white w-full mx-auto"
             />
           </form>
-          {/* <form className="grid grid-cols-1 gap-4 pt-3">
-            <input
-              type="text"
-              placeholder="Email"
-              {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
-            />
-            <input
-              type="tel"
-              placeholder="Mobile number"
-              {...register("Mobile number", {
-                required: true,
-                minLength: 6,
-                maxLength: 12,
-              })}
-            />
-
-            <input type="submit" />
-          </form> */}
           <div className="flex justify-center pt-5 gap-5">
             <p className="text-sm">New to doctor portal?</p>
             <p className="text-sm text-primary">Create new account</p>
