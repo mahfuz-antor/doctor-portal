@@ -7,7 +7,7 @@ import Loading from "./Loading";
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
   const [signOut, outLoading, outError] = useSignOut(auth);
-  console.log(user, "form navbar");
+  // console.log(user, "form navbar");
 
   const userSignOut = async () => {
     const success = await signOut();

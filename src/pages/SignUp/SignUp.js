@@ -3,10 +3,11 @@ import auth from "../../firebase.init";
 import {
   useSignInWithGoogle,
   useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import Loading from "../Common/Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [fireErrors, setFireErrors] = useState("");
@@ -15,41 +16,45 @@ const SignUp = () => {
   // sign in with Email and Password
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  // update profile name
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+  // useNavigate function
+  const navigate = useNavigate();
   if (gUser || user) {
-    console.log(gUser);
-    console.log(user, "Signup details from firebase!");
+    console.log(gUser || user);
   }
-  console.log(gUser, "Signup details from firebase!");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    createUserWithEmailAndPassword(data.Email, data.Password);
+  const onSubmit = async (data) => {
+    await createUserWithEmailAndPassword(data.Email, data.Password);
+    await updateProfile({ displayName: data.name });
+    navigate("/appointment");
     // userSignOut();
   };
 
   useEffect(() => {
-    if (error || gError) {
+    if (error || gError || updateError) {
       setFireErrors(
         <p className="text-sm text-red-500">
-          {error?.message || gError?.message}
+          {error?.message || gError?.message || updateError?.message}
         </p>
       );
     }
-  }, [error, gError, loading, gLoading]);
+  }, [error, gError, loading, gLoading, updateError]);
 
-  if (loading || gLoading) {
+  if (loading || gLoading || updating) {
     return <Loading></Loading>;
   }
 
   return (
     <>
-      <div className="px-12 h-screen flex justify-center items-center">
+      <div className="px-12 my-5 flex justify-center items-center">
         <div className="w-full md:w-2/3 lg:w-1/3 mx-auto grid grid-cols-1 justify-center items-center content-center rounded-lg shadow-lg px-12 py-5">
-          <h4 className="text-xl font-semibold py-5 text-center">Login</h4>
+          <h4 className="text-xl font-semibold py-5 text-center">Sign up</h4>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="grid grid-cols-1 gap-4 pt-3"
@@ -144,7 +149,7 @@ const SignUp = () => {
             {fireErrors}
             <input
               type="submit"
-              value="Login"
+              value="SignUp"
               className="btn btn-secondary text-white w-full mx-auto"
             />
           </form>
