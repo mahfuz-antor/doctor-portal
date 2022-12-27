@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSignOut, useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const [signOut, outLoading, outError] = useSignOut(auth);
+  console.log(user, "form navbar");
+
+  const userSignOut = async () => {
+    const success = await signOut();
+    if (success) {
+      alert("You are sign out");
+    }
+  };
+  useEffect(() => {
+    if (outError) {
+      alert(outError?.message);
+    }
+  }, [outError]);
   const menuItems = (
     <>
       <li>
@@ -20,7 +37,11 @@ const Navbar = () => {
         <Link to="/contact">Contact Us</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        {user ? (
+          <button onClick={() => userSignOut()}>Log Out</button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </li>
     </>
   );

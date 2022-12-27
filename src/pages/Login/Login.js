@@ -6,9 +6,10 @@ import {
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import Loading from "../Common/Loading";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [getData, setGetData] = useState({});
+  const [fireErrors, setFireErrors] = useState("");
   // sign in with Google
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   // sign in with Email and Password
@@ -27,20 +28,19 @@ const Login = () => {
     signInWithEmailAndPassword(data.Email, data.Password);
   };
 
-  let signInError = "";
+  useEffect(() => {
+    if (error || gError) {
+      setFireErrors(
+        <p className="text-sm text-red-500">
+          {error?.message || gError?.message}
+        </p>
+      );
+    }
+  }, [error, gError, loading, gLoading]);
 
-  if (error || gError) {
-    signInError = (
-      <p className="text-sm text-red-500">
-        {error?.message || gError?.message}
-      </p>
-    );
-    return signInError;
-  }
   if (loading || gLoading) {
     return <Loading></Loading>;
   }
-
   return (
     <>
       <div className="px-12 h-screen flex justify-center items-center">
@@ -109,16 +109,18 @@ const Login = () => {
 
               <span className="text-sm">Forgot Password? </span>
             </label>
+            {fireErrors}
             <input
               type="submit"
               value="Login"
               className="btn btn-secondary text-white w-full mx-auto"
             />
           </form>
-          {signInError}
           <div className="flex justify-center pt-5 gap-5">
             <p className="text-sm">New to doctor portal?</p>
-            <p className="text-sm text-primary">Create new account</p>
+            <Link to="/signup" className="text-sm text-primary">
+              Create new account
+            </Link>
           </div>
           <div className="divider">OR</div>
           <button
