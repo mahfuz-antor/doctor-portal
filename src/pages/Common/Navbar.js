@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSignOut, useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
+import Loading from "./Loading";
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -15,10 +16,15 @@ const Navbar = () => {
     }
   };
   useEffect(() => {
-    if (outError) {
-      alert(outError?.message);
+    if (outError || error) {
+      alert(outError?.message || error?.message);
     }
-  }, [outError]);
+  }, [outError, error]);
+  if (loading || outLoading) {
+    return <Loading></Loading>;
+  }
+
+  // menuItems data
   const menuItems = (
     <>
       <li>
