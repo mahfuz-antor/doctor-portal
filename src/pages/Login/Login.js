@@ -112,7 +112,9 @@ const Login = () => {
                 </span>
               )}
 
-              <span className="text-sm">Forgot Password? </span>
+              <Link to="/forgotPassword">
+                <span className="text-sm text-primary">Forgot Password? </span>
+              </Link>
             </label>
             {fireErrors}
             <input
