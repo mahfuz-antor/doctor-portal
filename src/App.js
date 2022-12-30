@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/Login/ForgotPassword";
 import Login from "./pages/Login/Login";
 import RequireAuth from "./pages/Login/RequireAuth";
 import ResetPassword from "./pages/Login/ResetPassword";
+import Review from "./pages/Review/Review";
 import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/review" element={<Review />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </>
