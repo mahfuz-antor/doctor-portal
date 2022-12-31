@@ -11,12 +11,12 @@ const Banner = () => {
           background: `url(${bgChair})`,
           backgroundSize: "cover",
         }}
-        className="hero min-h-screen px-12"
+        className="hero min-h-screen px-2 md:px-12 lg:px-12"
       >
-        <div className="hero-content gap-10 flex-col lg:flex-row-reverse">
+        <div className="hero-content min-w-fit gap-10 flex-col lg:flex-row-reverse">
           <img
             src={chair}
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="w-full md:w-5/12 lg:w-5/12 rounded-lg shadow-2xl"
             alt="chair pictures"
           />
           <div>

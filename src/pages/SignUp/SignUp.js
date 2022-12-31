@@ -52,8 +52,8 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="px-12 my-5 flex justify-center items-center">
-        <div className="w-full md:w-2/3 lg:w-1/3 mx-auto grid grid-cols-1 justify-center items-center content-center rounded-lg shadow-lg px-12 py-5">
+      <div className="px-5 md:px-12 lg:px-12 my-5 flex justify-center items-center">
+        <div className="w-full md:w-2/3 lg:w-1/3 mx-auto grid grid-cols-1 justify-center items-center content-center rounded-lg shadow-lg px-5 md:px-12 lg:px-12 py-5">
           <h4 className="text-xl font-semibold py-5 text-center">Sign up</h4>
           <form
             onSubmit={handleSubmit(onSubmit)}

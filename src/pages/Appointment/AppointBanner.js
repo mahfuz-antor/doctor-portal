@@ -19,7 +19,7 @@ const AppointBanner = ({ date, setDate }) => {
         <div className="hero-content gap-10 flex-col lg:flex-row-reverse">
           <img
             src={chair}
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="w-full md:w-5/12 lg:w-5/12 rounded-lg shadow-2xl"
             alt="Chair"
           />
           <div className="rounded-lg shadow-lg py-3">
