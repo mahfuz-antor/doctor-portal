@@ -27,7 +27,12 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      Email: "",
+      Password: "",
+    },
+  });
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.Email, data.Password);
   };

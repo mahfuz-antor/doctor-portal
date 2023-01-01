@@ -28,7 +28,13 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: "",
+      Email: "",
+      Password: "",
+    },
+  });
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.Email, data.Password);
     await updateProfile({ displayName: data.name });
