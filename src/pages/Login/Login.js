@@ -3,6 +3,7 @@ import auth from "../../firebase.init";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
+  useSendEmailVerification,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import Loading from "../Common/Loading";
@@ -19,6 +20,9 @@ const Login = () => {
   // sign in with Email and Password
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  // Email verification
+  const [sendEmailVerification, sending, verifyError] =
+    useSendEmailVerification(auth);
   if (user || gUser) {
     navigate(from, { replace: true });
   }
@@ -38,16 +42,16 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (error || gError) {
+    if (error || gError || verifyError) {
       setFireErrors(
         <p className="text-sm text-red-500">
-          {error?.message || gError?.message}
+          {error?.message || gError?.message || verifyError.message}
         </p>
       );
     }
-  }, [error, gError, loading, gLoading]);
+  }, [error, gError, verifyError]);
 
-  if (loading || gLoading) {
+  if (loading || gLoading || sending) {
     return <Loading></Loading>;
   }
 
@@ -128,6 +132,17 @@ const Login = () => {
               className="btn btn-secondary text-white w-full mx-auto"
             />
           </form>
+          <button
+            className="btn btn-accent rounded-lg mt-3"
+            onClick={async () => {
+              const success = await sendEmailVerification();
+              if (success) {
+                alert("Sent email");
+              }
+            }}
+          >
+            Verify email
+          </button>
           <div className="flex justify-center pt-5 gap-5">
             <p className="text-sm">New to doctor portal?</p>
             <Link to="/signup" className="text-sm text-primary">
