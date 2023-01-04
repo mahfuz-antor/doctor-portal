@@ -13,10 +13,10 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
   const [userData, setUserData] = useState([]);
 
   // handle function here
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const slot = event.target.slot.value;
-    setUserData({
+    await setUserData({
       treatmentName: name,
       date: date,
       time: slot,
@@ -24,9 +24,10 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
       email: user?.email,
       phone: userPhone.current.value,
     });
-    userName.current.value = null;
-    userEmail.current.value = null;
-    userPhone.current.value = null;
+    // userName.current.value = null;
+    // userEmail.current.value = null;
+    // userPhone.current.value = null;
+    await setTreatment(null);
   };
   console.log(userData, "userData from state in modal");
   return (
