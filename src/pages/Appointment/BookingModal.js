@@ -20,15 +20,15 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
       treatmentName: name,
       date: date,
       time: slot,
-      user: userName.current.value,
-      email: userEmail.current.value,
+      user: user?.displayName,
+      email: user?.email,
       phone: userPhone.current.value,
     });
     userName.current.value = null;
     userEmail.current.value = null;
     userPhone.current.value = null;
   };
-  console.log(userData, "userData from state");
+  console.log(userData, "userData from state in modal");
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
