@@ -1,35 +1,44 @@
+import { async } from "@firebase/util";
 import { format } from "date-fns";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const [user, loading, error] = useAuthState(auth);
   // state for storing data
-  const { name, slots } = treatment;
+  const { _id, name, slots } = treatment;
   const userName = useRef(null);
   const userEmail = useRef(null);
   const userPhone = useRef(null);
-  const [userData, setUserData] = useState([]);
+  // const [bookingData, setBookingData] = useState([]);
 
   // handle function here
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const slot = event.target.slot.value;
-    await setUserData({
-      treatmentName: name,
+    const booking = {
+      treatmentId: _id,
+      treatment: name,
       date: date,
       time: slot,
       user: user?.displayName,
       email: user?.email,
       phone: userPhone.current.value,
-    });
-    // userName.current.value = null;
-    // userEmail.current.value = null;
-    // userPhone.current.value = null;
-    await setTreatment(null);
+    };
+    fetch("http://localhost:5000/booking", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTreatment(null);
+      });
   };
-  console.log(userData, "userData from state in modal");
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
