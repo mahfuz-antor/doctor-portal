@@ -3,9 +3,15 @@ import { format } from "date-fns";
 import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { toast } from "react-toastify";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const [user, loading, error] = useAuthState(auth);
+  // toastify declare
+  const notify = () =>
+    toast("Booking added successfully!", {
+      position: "top-center",
+    });
   // state for storing data
   const { _id, name, slots } = treatment;
   const userName = useRef(null);
@@ -36,7 +42,10 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setTreatment(null);
+        if (data) {
+          notify();
+          setTreatment(null);
+        }
       });
   };
   return (

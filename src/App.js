@@ -10,6 +10,8 @@ import RequireAuth from "./pages/Login/RequireAuth";
 import ResetPassword from "./pages/Login/ResetPassword";
 import Review from "./pages/Review/Review";
 import SignUp from "./pages/SignUp/SignUp";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/about" element={<About />} />
       </Routes>
+      <ToastContainer />
     </>
   );
 }
