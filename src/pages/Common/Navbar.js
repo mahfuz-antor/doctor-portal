@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect  } from "react";
 import { useSignOut, useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
@@ -83,7 +83,7 @@ const Navbar = () => {
             Doctors Portal
           </a>
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-end lg:navbar hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{menuItems}</ul>
         </div>
       </div>

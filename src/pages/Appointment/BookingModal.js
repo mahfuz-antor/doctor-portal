@@ -7,13 +7,9 @@ import { toast } from "react-toastify";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const [user, loading, error] = useAuthState(auth);
-  // toastify declare
-  const notify = () =>
-    toast("Booking added successfully!", {
-      position: "top-center",
-    });
+
   // state for storing data
-  const { _id, name, slots } = treatment;
+  const { _id, treatmentName, slots } = treatment;
   const userName = useRef(null);
   const userEmail = useRef(null);
   const userPhone = useRef(null);
@@ -25,12 +21,12 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
     const slot = event.target.slot.value;
     const booking = {
       treatmentId: _id,
-      treatment: name,
+      treatment: treatmentName,
       date: date,
       time: slot,
       user: user?.displayName,
       email: user?.email,
-      phone: userPhone.current.value,
+      phone: userPhone?.current?.value,
     };
     fetch("http://localhost:5000/booking", {
       method: "POST",
@@ -42,10 +38,14 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data) {
-          notify();
-          setTreatment(null);
+        if (data.success) {
+          toast.info(`Booking added successfully on ${date} at ${slot}`);
+        } else {
+          toast.error(
+            `Already have an appointment on ${data.booking?.treatment} at ${data.booking?.time}`
+          );
         }
+        setTreatment(null);
       });
   };
   return (
@@ -60,7 +60,8 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             ✕
           </label>
           <h3 className="font-bold text-lg ">
-            Booking for: <span className="text-xl text-primary">{name}!</span>
+            Booking for:{" "}
+            <span className="text-xl text-primary">{treatmentName}!</span>
           </h3>
           {/* modal form started */}
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-2 pt-3">
