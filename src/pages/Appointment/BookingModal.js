@@ -7,12 +7,13 @@ import { toast } from "react-toastify";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const [user, loading, error] = useAuthState(auth);
-
   // state for storing data
   const { _id, treatmentName, slots } = treatment;
   const userName = useRef(null);
   const userEmail = useRef(null);
   const userPhone = useRef(null);
+  // date format here
+  const selectedDate = format(date, "PP");
   // const [bookingData, setBookingData] = useState([]);
 
   // handle function here
@@ -22,7 +23,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
     const booking = {
       treatmentId: _id,
       treatment: treatmentName,
-      date: date,
+      date: selectedDate,
       time: slot,
       user: user?.displayName,
       email: user?.email,
@@ -67,7 +68,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-2 pt-3">
             <input
               type="text"
-              value={format(date, "PP")}
+              value={selectedDate}
               disabled
               className="input input-bordered input-secondary w-full max-w-xs mx-auto"
             />
