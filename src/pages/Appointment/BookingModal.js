@@ -4,17 +4,15 @@ import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { toast } from "react-toastify";
+import Loading from "../Common/Loading";
 
-const BookingModal = ({ date, treatment, setTreatment }) => {
-  const [user, loading, error] = useAuthState(auth);
+const BookingModal = ({ selectDate, treatment, setTreatment }) => {
+  const [user, loading] = useAuthState(auth); //error also here
   // state for storing data
-  const { _id, treatmentName, slots } = treatment;
-  const userName = useRef(null);
-  const userEmail = useRef(null);
+  const { _id, name, slots } = treatment;
   const userPhone = useRef(null);
   // date format here
-  const selectedDate = format(date, "PP");
-  // const [bookingData, setBookingData] = useState([]);
+  const date = format(selectDate, "PP");
 
   // handle function here
   const handleSubmit = (event) => {
@@ -22,8 +20,8 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
     const slot = event.target.slot.value;
     const booking = {
       treatmentId: _id,
-      treatment: treatmentName,
-      date: selectedDate,
+      treatment: name,
+      date: date,
       time: slot,
       user: user?.displayName,
       email: user?.email,
@@ -38,17 +36,20 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           toast.info(`Booking added successfully on ${date} at ${slot}`);
         } else {
           toast.error(
-            `Already have an appointment on ${data.booking?.treatment} at ${data.booking?.time}`
+            `Already have an appointment on ${data.booking?.date} at ${data.booking?.time}`
           );
         }
         setTreatment(null);
       });
   };
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -61,14 +62,13 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             ✕
           </label>
           <h3 className="font-bold text-lg ">
-            Booking for:{" "}
-            <span className="text-xl text-primary">{treatmentName}!</span>
+            Booking for: <span className="text-xl text-primary">{name}!</span>
           </h3>
           {/* modal form started */}
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-2 pt-3">
             <input
               type="text"
-              value={selectedDate}
+              value={date}
               disabled
               className="input input-bordered input-secondary w-full max-w-xs mx-auto"
             />

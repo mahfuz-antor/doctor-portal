@@ -4,7 +4,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import chairBg from "../../assets/images/bg.png";
 
-const AppointBanner = ({ date, setDate }) => {
+const AppointBanner = ({ selectDate, setSelectDate }) => {
   const currentYear = new Date().getFullYear();
   const nextYear = currentYear + 1;
   return (
@@ -25,8 +25,8 @@ const AppointBanner = ({ date, setDate }) => {
           <div className="rounded-lg shadow-lg py-3">
             <DayPicker
               mode="single"
-              selected={date}
-              onSelect={setDate}
+              selected={selectDate}
+              onSelect={setSelectDate}
               fromYear={currentYear}
               toYear={nextYear}
               captionLayout="dropdown"

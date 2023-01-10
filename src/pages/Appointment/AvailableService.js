@@ -1,8 +1,7 @@
 import React from "react";
-import BookingModal from "./BookingModal";
 
-const AvailableService = ({ service, setTreatment }) => {
-  const { name, slots } = service;
+const AvailableService = ({ appointmentOption, setTreatment }) => {
+  const { name, slots } = appointmentOption;
   return (
     <>
       <section className="rounded-lg shadow-lg py-5">
@@ -23,7 +22,7 @@ const AvailableService = ({ service, setTreatment }) => {
         <div className="text-center pt-3">
           <label
             disabled={slots.length === 0}
-            onClick={() => setTreatment(service)}
+            onClick={() => setTreatment(appointmentOption)}
             htmlFor="booking-modal"
             className="btn btn-primary text-white font-bold bg-gradient-to-r from-secondary to-primary"
           >

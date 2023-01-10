@@ -4,12 +4,16 @@ import AppointBanner from "./AppointBanner";
 import AvailableAppoint from "./AvailableAppoint";
 
 const Appointments = () => {
-  const [date, setDate] = useState(new Date());
+  // const [date, setDate] = useState(new Date());
+  const [selectDate, setSelectDate] = useState(new Date());
   return (
     <>
       <main>
-        <AppointBanner date={date} setDate={setDate}></AppointBanner>
-        <AvailableAppoint date={date}></AvailableAppoint>
+        <AppointBanner
+          selectDate={selectDate}
+          setSelectDate={setSelectDate}
+        ></AppointBanner>
+        <AvailableAppoint selectDate={selectDate}></AvailableAppoint>
         <Footer></Footer>
       </main>
     </>
