@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { format } from "date-fns";
 import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -6,8 +5,8 @@ import auth from "../../firebase.init";
 import { toast } from "react-toastify";
 import Loading from "../Common/Loading";
 
-const BookingModal = ({ selectDate, treatment, setTreatment }) => {
-  const [user, loading] = useAuthState(auth); //error also here
+const BookingModal = ({ selectDate, treatment, setTreatment, refetch }) => {
+  const [user, loading] = useAuthState(auth); //error also here 17 no gallery Mohsin vobon.
   // state for storing data
   const { _id, name, slots } = treatment;
   const userPhone = useRef(null);
@@ -38,10 +37,13 @@ const BookingModal = ({ selectDate, treatment, setTreatment }) => {
       .then((data) => {
         // console.log(data);
         if (data.success) {
-          toast.info(`Booking added successfully on ${date} at ${slot}`);
+          toast.info(
+            `Booking added successfully for ${name} on ${date} at ${slot}`
+          );
+          refetch();
         } else {
           toast.error(
-            `Already have an appointment on ${data.booking?.date} at ${data.booking?.time}`
+            `Already have an appointment for ${data.booking?.treatment} on ${data.booking?.date} at ${data.booking?.time}`
           );
         }
         setTreatment(null);
