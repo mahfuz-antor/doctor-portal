@@ -5,7 +5,14 @@ import auth from "../../firebase.init";
 import { toast } from "react-toastify";
 import Loading from "../Common/Loading";
 
-const BookingModal = ({ selectDate, treatment, setTreatment, refetch }) => {
+const BookingModal = ({
+  selectDate,
+  setSelectDate,
+  treatment,
+  setTreatment,
+  refetch,
+  isLoading,
+}) => {
   const [user, loading] = useAuthState(auth); //error also here 17 no gallery Mohsin vobon.
   // state for storing data
   const { _id, name, slots } = treatment;
@@ -35,7 +42,10 @@ const BookingModal = ({ selectDate, treatment, setTreatment, refetch }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
+        if (selectDate || setSelectDate) {
+          console.log("refresh the page");
+        }
         if (data.success) {
           toast.info(
             `Booking added successfully for ${name} on ${date} at ${slot}`
@@ -49,7 +59,7 @@ const BookingModal = ({ selectDate, treatment, setTreatment, refetch }) => {
         setTreatment(null);
       });
   };
-  if (loading) {
+  if (loading || isLoading) {
     return <Loading />;
   }
   return (

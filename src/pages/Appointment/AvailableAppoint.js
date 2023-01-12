@@ -11,8 +11,12 @@ const AvailableAppoint = ({ selectDate, setSelectDate }) => {
   // date format here
   const date = format(selectDate, "PP");
 
-  const { data: appointmentOptions = [], refetch } = useQuery({
-    queryKey: [],
+  const {
+    data: appointmentOptions = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["appointmentOptions", date],
     queryFn: async () => {
       const res = await fetch(
         `http://localhost:5000/appointmentOptions?date=${date}`
@@ -27,9 +31,10 @@ const AvailableAppoint = ({ selectDate, setSelectDate }) => {
   //     .then((res) => res.json())
   //     .then((data) => setServices(data));
   // }, []);
-  if (!appointmentOptions) {
-    return <Loading />;
+  if (isLoading) {
+    return <Loading></Loading>;
   }
+
   return (
     <>
       <section className="py-20 px-5">
@@ -51,6 +56,7 @@ const AvailableAppoint = ({ selectDate, setSelectDate }) => {
         {treatment && (
           <BookingModal
             selectDate={selectDate}
+            setSelectDate={setSelectDate}
             treatment={treatment}
             setTreatment={setTreatment}
             refetch={refetch}
