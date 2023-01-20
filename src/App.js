@@ -8,6 +8,9 @@ import { publicRoutes } from "./Route/PublicRoute";
 import { useEffect, useState } from "react";
 import { getRoute } from "./Route";
 import Router from "./Route/Router";
+import Navbar from "./pages/Common/Navbar";
+import RequireAuth from "./pages/Login/RequireAuth";
+import Appointments from "./pages/Appointment/Appointments";
 
 function App() {
   const [allRoute, setAllRoute] = useState([...publicRoutes]);
@@ -17,6 +20,7 @@ function App() {
   }, []);
   return (
     <>
+      <Navbar />
       {/* <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -36,6 +40,17 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/about" element={<About />} />
       </Routes> */}
+      <Routes>
+        <Route
+          path="/appointment"
+          element={
+            <RequireAuth>
+              <Appointments />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+
       <Router allRoute={allRoute} />
       <ToastContainer />
     </>

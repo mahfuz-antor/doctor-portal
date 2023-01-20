@@ -12,6 +12,11 @@ export const navItem = [
   {
     title: "User",
     link: "user",
+    role: "user",
+  },
+  {
+    title: "User",
+    link: "user",
     role: "admin",
   },
 ];

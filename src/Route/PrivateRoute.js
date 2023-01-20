@@ -1,21 +1,29 @@
+import { Navigate } from "react-router-dom";
+import Appointments from "../pages/Appointment/Appointments";
 import AdminPage from "../pages/Dashboard/AdminPage";
 import UserAppointments from "../pages/Dashboard/UserAppointments/UserAppointments";
 import Users from "../pages/Dashboard/Users";
+import { getPath } from "./Utils";
 
 export const privateRoutes = [
   {
     path: "/dashboard",
-    element: <AdminPage />,
-    role: "admin",
+    element: <Navigate replace to={getPath()} />,
+    role: "all",
   },
+  // {
+  //   path: "appointment",
+  //   element: <Appointments />,
+  //   role: "user",
+  // },
   {
-    path: "users",
+    path: "user",
     element: <Users />,
-    role: "admin",
+    role: "user",
   },
   {
     path: "userAppointment",
     element: <UserAppointments />,
-    role: "admin",
+    role: "user",
   },
 ];

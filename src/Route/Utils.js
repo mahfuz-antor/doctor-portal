@@ -1,6 +1,15 @@
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
+
 export const user = {
   name: "mahfuz",
   role: "user",
+};
+
+// getting the auth user from login data
+export const GetUser = () => {
+  const [user, loading, error] = useAuthState(auth);
+  return user;
 };
 
 const routes = [
