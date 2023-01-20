@@ -38,7 +38,7 @@ const AvailableAppoint = ({ selectDate, setSelectDate }) => {
   return (
     <>
       <section className="py-20 px-5">
-        <h4 className="text-xl text-center text-secondary">
+        <h4 className="text-xl font-bold text-center text-secondary">
           Available Treatment on {format(selectDate, "PP")}
         </h4>
         <p className="text-lg text-gray-500 text-center pb-5">
