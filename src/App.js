@@ -19,7 +19,6 @@ function App() {
   }, []);
   return (
     <>
-      <Navbar />
       {/* <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -47,7 +46,7 @@ function App() {
           element={<RequireAuth></RequireAuth>}
         />
       </Routes> */}
-
+      <Navbar />
       <Router allRoute={allRoute} />
       <ToastContainer />
       <Footer />
