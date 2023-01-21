@@ -18,7 +18,7 @@ const Home = () => {
       <HomeAppoint></HomeAppoint>
       <Testimonials></Testimonials>
       <Contact></Contact>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </>
   );
 };

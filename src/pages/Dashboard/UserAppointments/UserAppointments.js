@@ -1,5 +1,4 @@
 import React from "react";
-import UserDrawer from "../Common/DashboardLayout";
 
 const UserAppointments = () => {
   const treatments = [
@@ -21,10 +20,88 @@ const UserAppointments = () => {
       treatment: "Teeth Orthodontic",
       time: "12:00 PM - 12:30 PM",
     },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
+    {
+      id: 3,
+      name: "Mahfuz Antor",
+      treatment: "Teeth Orthodontic",
+      time: "12:00 PM - 12:30 PM",
+    },
   ];
   return (
     <>
-      <main className=" bg-sky-100">
+      <main className="pb-5 bg-sky-100">
         {/* <section className="basis-1/5"></section> */}
         <section className=" px-10">
           <div className="flex justify-between items-center pt-10 pb-5">
@@ -47,8 +124,8 @@ const UserAppointments = () => {
                 </thead>
                 <tbody>
                   {/* <!-- row 1 --> */}
-                  {treatments.map((treatment) => (
-                    <tr key={treatment.id}>
+                  {treatments.map((treatment, i) => (
+                    <tr key={i}>
                       <th>{treatment.id}</th>
                       <td>{treatment.name}</td>
                       <td>{treatment.treatment}</td>

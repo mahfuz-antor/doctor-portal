@@ -8,13 +8,15 @@ const Appointments = () => {
   const [selectDate, setSelectDate] = useState(new Date());
   return (
     <>
-      <main>
-        <AppointBanner
-          selectDate={selectDate}
-          setSelectDate={setSelectDate}
-        ></AppointBanner>
-        <AvailableAppoint selectDate={selectDate}></AvailableAppoint>
-        <Footer></Footer>
+      <main className="px-5 py-5 bg-sky-100">
+        <div className="bg-white">
+          <AppointBanner
+            selectDate={selectDate}
+            setSelectDate={setSelectDate}
+          ></AppointBanner>
+          <AvailableAppoint selectDate={selectDate}></AvailableAppoint>
+          {/* <Footer></Footer> */}
+        </div>
       </main>
     </>
   );

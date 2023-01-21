@@ -14,10 +14,10 @@ export const publicRoutes = [
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/appointment",
-    element: <Appointments />,
-  },
+  // {
+  //   path: "/appointment",
+  //   element: <Appointments />,
+  // },
   {
     path: "/review",
     element: <Review />,

@@ -1,20 +1,17 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItem } from "../../Common/NavItem";
+import { user } from "../../../Route/Utils";
 
 const DashboardLayout = () => {
-  const user = {
-    name: "mahfuz",
-    role: "user",
-  };
   return (
     <>
-      <div className="drawer drawer-mobile bg-sky-100">
+      <div className="drawer drawer-mobile">
         <input id="user-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
+        <div className="drawer-content scrollbar-hide">
           <Outlet />
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side bg-sky-100">
           <label htmlFor="user-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-100 text-base-content">
             <li>
