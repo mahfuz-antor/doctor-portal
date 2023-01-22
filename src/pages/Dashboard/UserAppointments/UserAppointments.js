@@ -1,6 +1,10 @@
 import React from "react";
+import { useContext } from "react";
+import { UserContext } from "../../../App";
 
 const UserAppointments = () => {
+  const user = useContext(UserContext);
+  console.log(user?.email, "user gettting from app js");
   const treatments = [
     {
       id: 1,

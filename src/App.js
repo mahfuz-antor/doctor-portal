@@ -7,11 +7,15 @@ import { useEffect, useState } from "react";
 import { getRoute } from "./Route";
 import Router from "./Route/Router";
 import Navbar from "./pages/Common/Navbar";
-import RequireAuth from "./pages/Login/RequireAuth";
-import Appointments from "./pages/Appointment/Appointments";
 import Footer from "./pages/Common/Footer";
+import { createContext } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "./firebase.init";
+
+export const UserContext = createContext();
 
 function App() {
+  const [user, loading, error] = useAuthState(auth);
   const [allRoute, setAllRoute] = useState([...publicRoutes]);
   useEffect(() => {
     const route = getRoute();
@@ -46,10 +50,12 @@ function App() {
           element={<RequireAuth></RequireAuth>}
         />
       </Routes> */}
-      <Navbar />
-      <Router allRoute={allRoute} />
-      <ToastContainer />
-      <Footer />
+      <UserContext.Provider value={user}>
+        <Navbar />
+        <Router allRoute={allRoute} />
+        <ToastContainer />
+        <Footer />
+      </UserContext.Provider>
     </>
   );
 }
