@@ -127,16 +127,16 @@ const UserAppointments = () => {
             </h4>
           </div>
           <div>
-            <div className="overflow-x-auto overflow-y-auto">
+            <div className="overflow-x-auto">
               <table className="table w-full h-full">
                 {/* <!-- head --> */}
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Treatment</th>
-                    <th>Date</th>
-                    <th>Time</th>
+                    <th className="sticky z-50">Name</th>
+                    <th className="sticky z-50">Treatment</th>
+                    <th className="sticky z-50">Date</th>
+                    <th className="sticky z-50">Time</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -144,10 +144,12 @@ const UserAppointments = () => {
                   {booking?.map((treatment, i) => (
                     <tr key={i}>
                       <th>{treatment._id}</th>
-                      <td>{treatment.user}</td>
-                      <td>{treatment.treatment}</td>
-                      <td>{treatment.appointmentDate}</td>
-                      <td>{treatment.time}</td>
+                      <td className="sticky z-50">{treatment.user}</td>
+                      <td className="sticky z-50">{treatment.treatment}</td>
+                      <td className="sticky z-50">
+                        {treatment.appointmentDate}
+                      </td>
+                      <td className="sticky z-50">{treatment.time}</td>
                     </tr>
                   ))}
                 </tbody>
