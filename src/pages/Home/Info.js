@@ -10,21 +10,21 @@ const Info = () => {
   const contactDetails = "+000 123 456789";
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 pb-10">
+      <div className="grid grid-cols-1 -z-50 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 pb-10">
         <InfoCard
-          bgClass="bg-gradient-to-r from-secondary to-primary"
+          bgClass="bg-gradient-to-r -z-50 from-secondary to-primary"
           title="Opening hours"
           details={openingDetails}
           img={clock}
         ></InfoCard>
         <InfoCard
-          bgClass="bg-accent"
+          bgClass="bg-accent -z-50"
           title="Visit our location"
           details={locationDetails}
           img={location}
         ></InfoCard>
         <InfoCard
-          bgClass="bg-gradient-to-r from-secondary to-primary"
+          bgClass="bg-gradient-to-r -z-50 from-secondary to-primary"
           title="Contact us now"
           details={contactDetails}
           img={phone}

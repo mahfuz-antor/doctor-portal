@@ -1,10 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../../../App";
 
 const UserAppointments = () => {
   const user = useContext(UserContext);
-  console.log(user?.email, "user gettting from app js");
+  const email = user?.email;
+
+  const url = `http://localhost:5000/booking?email=${email}`;
+  const { data: booking = [] } = useQuery({
+    queryKey: ["booking", email],
+    queryFn: async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      return data;
+    },
+  });
   const treatments = [
     {
       id: 1,
@@ -103,6 +114,7 @@ const UserAppointments = () => {
       time: "12:00 PM - 12:30 PM",
     },
   ];
+
   return (
     <>
       <main className="pb-5 bg-sky-100">
@@ -115,24 +127,26 @@ const UserAppointments = () => {
             </h4>
           </div>
           <div>
-            <div className="overflow-x-auto">
-              <table className="table w-full">
+            <div className="overflow-x-auto overflow-y-auto">
+              <table className="table w-full h-full">
                 {/* <!-- head --> */}
                 <thead>
                   <tr>
-                    <th>SL</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Treatment</th>
+                    <th>Date</th>
                     <th>Time</th>
                   </tr>
                 </thead>
                 <tbody>
                   {/* <!-- row 1 --> */}
-                  {treatments.map((treatment, i) => (
+                  {booking?.map((treatment, i) => (
                     <tr key={i}>
-                      <th>{treatment.id}</th>
-                      <td>{treatment.name}</td>
+                      <th>{treatment._id}</th>
+                      <td>{treatment.user}</td>
                       <td>{treatment.treatment}</td>
+                      <td>{treatment.appointmentDate}</td>
                       <td>{treatment.time}</td>
                     </tr>
                   ))}
