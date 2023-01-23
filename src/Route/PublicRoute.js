@@ -4,6 +4,7 @@ import NotAccess from "../pages/Common/NotAccess";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Review from "../pages/Review/Review";
+import SignUp from "../pages/SignUp/SignUp";
 
 export const publicRoutes = [
   {
@@ -14,10 +15,14 @@ export const publicRoutes = [
     path: "/login",
     element: <Login />,
   },
-  // {
-  //   path: "/appointment",
-  //   element: <Appointments />,
-  // },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  {
+    path: "/appointment",
+    element: <Appointments />,
+  },
   {
     path: "/review",
     element: <Review />,

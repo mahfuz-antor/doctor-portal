@@ -8,6 +8,7 @@ import {
 import { useForm } from "react-hook-form";
 import Loading from "../Common/Loading";
 import { Link, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
   const [fireErrors, setFireErrors] = useState("");
@@ -18,10 +19,18 @@ const SignUp = () => {
     useCreateUserWithEmailAndPassword(auth);
   // update profile name
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+  // token use case from hooks
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
   // useNavigate function
   const navigate = useNavigate();
+
+  if (token) {
+    navigate("/");
+  }
+
   if (gUser || user) {
-    console.log(gUser || user);
+    console.log(gUser || user?.user.displayName, user?.user.email);
   }
 
   const {
@@ -36,10 +45,27 @@ const SignUp = () => {
     },
   });
   const onSubmit = async (data) => {
+    console.log(data, "data is checking");
     await createUserWithEmailAndPassword(data.Email, data.Password);
     await updateProfile({ displayName: data.name });
-    navigate("/appointment");
+    await saveUser(data?.name, data?.Email);
     // userSignOut();
+  };
+
+  const saveUser = (name, email) => {
+    const user = { name, email };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCreatedUserEmail(email);
+        console.log(data, "backend data");
+      });
   };
 
   useEffect(() => {

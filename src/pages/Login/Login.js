@@ -8,6 +8,7 @@ import {
 import { useForm } from "react-hook-form";
 import Loading from "../Common/Loading";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   // navigation part start
@@ -20,12 +21,13 @@ const Login = () => {
   // sign in with Email and Password
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  console.log(user?.user?.email, "user coming");
   // Email verification
   const [sendEmailVerification, sending, verifyError] =
     useSendEmailVerification(auth);
-  if (user || gUser) {
-    navigate(from, { replace: true });
-  }
+  // creating token user from hooks useToken
+  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const [token] = useToken(loginUserEmail);
 
   const {
     register,
@@ -37,11 +39,18 @@ const Login = () => {
       Password: "",
     },
   });
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     signInWithEmailAndPassword(data.Email, data.Password);
+    // setLoginUserEmail(data.Email);
   };
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   useEffect(() => {
+    if (user || gUser) {
+      setLoginUserEmail(user?.user?.email);
+    }
     if (error || gError || verifyError) {
       setFireErrors(
         <p className="text-sm text-red-500">
@@ -49,7 +58,7 @@ const Login = () => {
         </p>
       );
     }
-  }, [error, gError, verifyError]);
+  }, [error, gError, verifyError, user, gUser]);
 
   if (loading || gLoading || sending) {
     return <Loading></Loading>;
