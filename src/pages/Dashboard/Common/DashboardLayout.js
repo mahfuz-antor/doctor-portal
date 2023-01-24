@@ -8,7 +8,7 @@ const DashboardLayout = () => {
     <>
       <div className="drawer drawer-mobile">
         <input id="user-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
+        <div className="drawer-content scrollbar-hide">
           <Outlet />
         </div>
         <div className="drawer-side bg-sky-100">

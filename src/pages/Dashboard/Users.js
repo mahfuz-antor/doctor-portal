@@ -11,8 +11,17 @@ const Users = () => {
       return data;
     },
   });
-  console.log(users, "getting users data");
-  const booking = [{}];
+
+  const handleMakeAdmin = (id) => {
+    fetch(`http://localhost:5000/users/admin/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "checking admin making");
+      });
+  };
+
   return (
     <main className="px-5 py-5 bg-sky-100">
       <section className=" px-10">
@@ -29,6 +38,8 @@ const Users = () => {
                   <th>SL</th>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Admin</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -38,6 +49,21 @@ const Users = () => {
                     <th>{i + 1}</th>
                     <td>{user?.name}</td>
                     <td>{user?.email}</td>
+                    <td>
+                      {user?.role !== "admin" && (
+                        <button
+                          onClick={() => handleMakeAdmin(user._id)}
+                          className="btn btn-xs btn-primary rounded-lg"
+                        >
+                          Make Admin
+                        </button>
+                      )}
+                    </td>
+                    <td>
+                      <button className="btn btn-xs btn-red rounded-lg">
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
