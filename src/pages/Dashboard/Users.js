@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { toast } from "react-toastify";
 
 const Users = () => {
   const url = `http://localhost:5000/users`;
-  const { data: users = [] } = useQuery({
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch(url);
@@ -18,6 +19,10 @@ const Users = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Admin added successfully!");
+          refetch();
+        }
         console.log(data, "checking admin making");
       });
   };
