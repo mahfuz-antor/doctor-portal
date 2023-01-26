@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import Appointments from "../pages/Appointment/Appointments";
 import DashboardLayout from "../pages/Dashboard/Common/DashboardLayout";
 import { privateRoutes } from "./PrivateRoute";
 import { user } from "./Utils";
@@ -29,4 +30,13 @@ export const getRoute = () => {
     element: <DashboardLayout />,
     children: filterRoute,
   };
+};
+
+export const appointmentPage = {
+  path: "appointment",
+  element: (
+    <ProtectRoute r={{ role: "user" }}>
+      <Appointments />
+    </ProtectRoute>
+  ),
 };

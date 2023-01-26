@@ -25,6 +25,10 @@ const routes = [
     path: "/dashboard/userAppointment",
     role: "user",
   },
+  {
+    path: "/appointment",
+    role: "user",
+  },
 ];
 
 export const getPath = () => {

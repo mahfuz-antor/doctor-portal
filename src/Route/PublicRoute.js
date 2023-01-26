@@ -19,10 +19,10 @@ export const publicRoutes = [
     path: "/signup",
     element: <SignUp />,
   },
-  {
-    path: "/appointment",
-    element: <Appointments />,
-  },
+  // {
+  //   path: "/appointment",
+  //   element: <Appointments />,
+  // },
   {
     path: "/review",
     element: <Review />,

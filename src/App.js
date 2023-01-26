@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { publicRoutes } from "./Route/PublicRoute";
 import { useEffect, useState } from "react";
-import { getRoute } from "./Route";
+import { appointmentPage, getRoute } from "./Route";
 import Router from "./Route/Router";
 import Navbar from "./pages/Common/Navbar";
 import Footer from "./pages/Common/Footer";
@@ -15,11 +15,15 @@ import auth from "./firebase.init";
 export const UserContext = createContext();
 
 function App() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [allRoute, setAllRoute] = useState([...publicRoutes]);
   useEffect(() => {
     const route = getRoute();
-    setAllRoute([...allRoute, route]);
+    setAllRoute((previousStates) => [
+      ...previousStates,
+      route,
+      appointmentPage,
+    ]);
   }, []);
   return (
     <>

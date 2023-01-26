@@ -10,11 +10,11 @@ export const privateRoutes = [
     element: <Navigate replace to={getPath()} />,
     role: "all",
   },
-  {
-    path: "appointment",
-    element: <Appointments />,
-    role: "user",
-  },
+  // {
+  //   path: "appointment",
+  //   element: <Appointments />,
+  //   role: "user",
+  // },
   {
     path: "user",
     element: <Users />,
