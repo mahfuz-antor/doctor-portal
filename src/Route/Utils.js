@@ -1,16 +1,10 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import auth from "../firebase.init";
-
 export const user = {
   name: "mahfuz",
-  role: "user",
+  role: "patient",
 };
 
 // getting the auth user from login data
-export const GetUser = () => {
-  const [user, loading, error] = useAuthState(auth);
-  return user;
-};
+const GetUser = () => {};
 
 const routes = [
   {
@@ -19,15 +13,15 @@ const routes = [
   },
   {
     path: "/dashboard/user",
-    role: "user",
+    role: "patient",
   },
   {
     path: "/dashboard/userAppointment",
-    role: "user",
+    role: "patient",
   },
   {
     path: "/appointment",
-    role: "user",
+    role: "patient",
   },
 ];
 

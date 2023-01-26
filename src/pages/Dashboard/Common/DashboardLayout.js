@@ -2,8 +2,21 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navItem } from "../../Common/NavItem";
 import { user } from "../../../Route/Utils";
+import useAdmin from "../../../hooks/useAdmin";
+import { UserContext } from "../../../App";
+import { useContext } from "react";
+import Loading from "../../Common/Loading";
 
 const DashboardLayout = () => {
+  const userAuth = useContext(UserContext);
+  const email = userAuth?.email;
+  const [isAdmin, isAdminLoading] = useAdmin(email);
+  console.log(isAdmin, "checking the email address");
+
+  if (isAdminLoading) {
+    return <Loading></Loading>;
+  }
+
   return (
     <>
       <div className="drawer drawer-mobile">
@@ -31,6 +44,24 @@ const DashboardLayout = () => {
                     </NavLink>
                   )
               )}
+              {isAdmin
+                ? navItem?.map(
+                    (n, i) =>
+                      n.role === user.role && (
+                        <NavLink
+                          className={(navInfo) =>
+                            navInfo.isActive
+                              ? "mb-1 p-2 w-full bg-blue-500 text-white block rounded-lg"
+                              : "mb-1 p-2 w-full hover:bg-blue-500 hover:text-white block rounded-lg"
+                          }
+                          key={i}
+                          to={n.link}
+                        >
+                          {n.title}
+                        </NavLink>
+                      )
+                  )
+                : null}
             </li>
           </ul>
         </div>

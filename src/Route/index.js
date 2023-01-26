@@ -1,10 +1,22 @@
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import { UserContext } from "../App";
+import usePatient from "../hooks/usePatient";
 import Appointments from "../pages/Appointment/Appointments";
+import Loading from "../pages/Common/Loading";
 import DashboardLayout from "../pages/Dashboard/Common/DashboardLayout";
 import { privateRoutes } from "./PrivateRoute";
-import { user } from "./Utils";
+// import { user } from "./Utils";
 
 const ProtectRoute = ({ r, children }) => {
+  const getUser = useContext(UserContext);
+  console.log(getUser?.email);
+  const patient = getUser?.email;
+  const user = {
+    name: "Mahfuz",
+    role: patient ? "patient" : "",
+  };
+
   if (user) {
     if (r.role === user?.role || r.role === "all") {
       return children;
@@ -35,7 +47,7 @@ export const getRoute = () => {
 export const appointmentPage = {
   path: "appointment",
   element: (
-    <ProtectRoute r={{ role: "user" }}>
+    <ProtectRoute r={{ role: "patient" }}>
       <Appointments />
     </ProtectRoute>
   ),

@@ -7,12 +7,7 @@ export const navItem = [
   {
     title: "UserAppointment",
     link: "userAppointment",
-    role: "user",
-  },
-  {
-    title: "User",
-    link: "user",
-    role: "user",
+    role: "patient",
   },
   {
     title: "User",
