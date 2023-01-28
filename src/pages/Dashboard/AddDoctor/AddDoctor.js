@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AddDoctor = () => {
   // today date function here.
   const today = new Date().toString().slice(0, 15);
+  // get doctor image state
+  const [doctorImg, setDoctorImg] = useState("");
 
   // get the treatment category
   const { data: treatments = [] } = useQuery({
@@ -15,6 +17,21 @@ const AddDoctor = () => {
       return data;
     },
   });
+  // image uploading function here
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", doctorImg);
+    data.append("upload_preset", "upload_preset");
+    data.append("cloud_name", "divdnjnx5");
+    fetch("https://api.cloudinary.com/v1_1/divdnjnx5/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   // form submit data here
   const {
@@ -22,12 +39,23 @@ const AddDoctor = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      Email: "",
-      Password: "",
-    },
+    // defaultValues: {
+    //   Email: "",
+    //   Password: "",
+    // },
   });
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    uploadImage();
+    // adding a doctor in a database collection
+    fetch("http://localhost:5000/doctors", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(data, "form data is collected!");
+  };
   return (
     <div>
       <div className="flex justify-between items-center px-5">
@@ -88,7 +116,15 @@ const AddDoctor = () => {
           </label>
           <label htmlFor="specialty">
             <span className="text-md">Specialty</span>
-            <select className="select select-secondary input block input-bordered w-full mx-auto my-2">
+            <select
+              {...register("treatment", {
+                required: {
+                  value: true,
+                  message: "This field is required!",
+                },
+              })}
+              className="select select-secondary input block input-bordered w-full mx-auto my-2"
+            >
               <option disabled selected>
                 Select a Specialty
               </option>
@@ -97,7 +133,7 @@ const AddDoctor = () => {
               ))}
             </select>
             {errors?.specialty?.type === "required" && (
-              <span id="password" className="text-sm text-red-500 block">
+              <span id="treatment" className="text-sm text-red-500 block">
                 {errors?.specialty?.message}
               </span>
             )}
