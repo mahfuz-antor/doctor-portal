@@ -19,7 +19,12 @@ const ProtectRoute = ({ r, children }) => {
   // };
 
   if (user) {
-    if (r.role === user?.role || r.role === "all") {
+    if (
+      r.role === user?.role ||
+      r.role === "all" ||
+      r?.role?.admin === user?.role ||
+      r?.role?.patient === user?.role
+    ) {
       return children;
     } else {
       return <Navigate to={"/not-access"} />;
@@ -44,11 +49,13 @@ export const getRoute = () => {
     children: filterRoute,
   };
 };
+// for admin and patient access the /appointment route
+const roles = { admin: "admin", patient: "patient" };
 
 export const appointmentPage = {
   path: "appointment",
   element: (
-    <ProtectRoute r={{ role: "patient" }}>
+    <ProtectRoute r={{ role: roles }}>
       <Appointments />
     </ProtectRoute>
   ),

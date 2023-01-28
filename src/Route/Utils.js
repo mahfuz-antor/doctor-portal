@@ -5,7 +5,7 @@ export const user = {
 
 // getting the auth user from login data
 const GetUser = () => {};
-
+const roles = { admin: "admin", patient: "patient" };
 const routes = [
   {
     path: "/dashboard/admin",
@@ -25,11 +25,11 @@ const routes = [
   },
   {
     path: "/appointment",
-    role: "patient",
+    role: roles,
   },
 ];
 
 export const getPath = () => {
-  const route = routes.find((r) => r.role === user?.role);
+  const route = routes?.find((r) => r.role === user?.role);
   return route.path;
 };
