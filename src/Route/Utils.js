@@ -1,6 +1,6 @@
 export const user = {
   name: "mahfuz",
-  role: "patient",
+  role: "admin",
 };
 
 // getting the auth user from login data
@@ -9,6 +9,10 @@ const GetUser = () => {};
 const routes = [
   {
     path: "/dashboard/admin",
+    role: "admin",
+  },
+  {
+    path: "/dashboard/addDoctor",
     role: "admin",
   },
   {

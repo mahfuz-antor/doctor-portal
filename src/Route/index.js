@@ -6,16 +6,17 @@ import Appointments from "../pages/Appointment/Appointments";
 import Loading from "../pages/Common/Loading";
 import DashboardLayout from "../pages/Dashboard/Common/DashboardLayout";
 import { privateRoutes } from "./PrivateRoute";
-// import { user } from "./Utils";
+import { user } from "./Utils";
 
 const ProtectRoute = ({ r, children }) => {
   const getUser = useContext(UserContext);
   console.log(getUser?.email);
   const patient = getUser?.email;
-  const user = {
-    name: "Mahfuz",
-    role: patient ? "patient" : "",
-  };
+  // const user = {
+  //   name: "Mahfuz",
+  //   // role: patient ? "patient" : "",
+  //   role: "admin",
+  // };
 
   if (user) {
     if (r.role === user?.role || r.role === "all") {

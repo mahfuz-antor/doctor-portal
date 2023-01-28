@@ -14,4 +14,9 @@ export const navItem = [
     link: "user",
     role: "admin",
   },
+  {
+    title: "Add Doctor",
+    link: "addDoctor",
+    role: "admin",
+  },
 ];
