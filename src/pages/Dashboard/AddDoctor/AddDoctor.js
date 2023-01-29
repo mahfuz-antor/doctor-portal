@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const AddDoctor = () => {
   // today date function here.
   const today = new Date().toString().slice(0, 15);
   // get doctor image state
-  const [doctorImg, setDoctorImg] = useState(null);
+  const [imgURL, setImgURL] = useState("");
   const imageRef = useRef();
 
   // get the treatment category
@@ -32,6 +33,8 @@ const AddDoctor = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        const url = data?.url;
+        setImgURL(url);
         console.log(data?.url, "just checking the image from cloudinary.");
       });
   };
@@ -51,16 +54,29 @@ const AddDoctor = () => {
     // const getImage = data?.image[0];
     // console.log(getImage, "checking imageeeee");
     // await setDoctorImg(getImage);
-    uploadImage();
+    // await uploadImage();
     // adding a doctor in a database collection
-    // fetch("http://localhost:5000/doctors", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    console.log(data, "form data is collected!");
+    await fetch("http://localhost:5000/doctors", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ data, img: imgURL }),
+    })
+      .then((res) => res.json())
+      .then((getResponse) => {
+        if (getResponse) {
+          toast.success("The doctor details added successfully!");
+        } else {
+          toast.warning("Your data do not submit. Try again");
+        }
+      });
+  };
+
+  const handleImage = (e) => {
+    uploadImage();
+    // const getIMG = e?.target?.files[0];
+    // console.log(getIMG, "getIMG from input");
   };
   return (
     <div>
@@ -174,6 +190,7 @@ const AddDoctor = () => {
             <input
               required
               ref={imageRef}
+              onChange={(e) => handleImage(e)}
               type="file"
               id="image"
               name="image"
