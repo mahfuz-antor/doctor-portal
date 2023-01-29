@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
 const AddDoctor = () => {
   // today date function here.
   const today = new Date().toString().slice(0, 15);
   // get doctor image state
-  const [doctorImg, setDoctorImg] = useState("");
+  const [doctorImg, setDoctorImg] = useState(null);
+  const imageRef = useRef();
 
   // get the treatment category
   const { data: treatments = [] } = useQuery({
@@ -19,9 +21,10 @@ const AddDoctor = () => {
   });
   // image uploading function here
   const uploadImage = () => {
+    const setImg = imageRef?.current.files[0];
     const data = new FormData();
-    data.append("file", doctorImg);
-    data.append("upload_preset", "upload_preset");
+    data.append("file", setImg);
+    data.append("upload_preset", "doctor_portal");
     data.append("cloud_name", "divdnjnx5");
     fetch("https://api.cloudinary.com/v1_1/divdnjnx5/image/upload", {
       method: "post",
@@ -29,7 +32,7 @@ const AddDoctor = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data?.url, "just checking the image from cloudinary.");
       });
   };
 
@@ -45,20 +48,23 @@ const AddDoctor = () => {
     // },
   });
   const onSubmit = async (data) => {
+    // const getImage = data?.image[0];
+    // console.log(getImage, "checking imageeeee");
+    // await setDoctorImg(getImage);
     uploadImage();
     // adding a doctor in a database collection
-    fetch("http://localhost:5000/doctors", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    // fetch("http://localhost:5000/doctors", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });
     console.log(data, "form data is collected!");
   };
   return (
     <div>
-      <div className="flex justify-between items-center px-5">
+      <div className="flex justify-between items-center px-5 my-5">
         <h2 className="text-3xl text-primary font-medium">Add Doctor </h2>
         <h2 className="text-xl text-primary">Today: {today} </h2>
       </div>
@@ -137,6 +143,42 @@ const AddDoctor = () => {
                 {errors?.specialty?.message}
               </span>
             )}
+          </label>
+          {/* <label htmlFor="image">
+            <span className="text-md">Image</span>
+            <input
+              required
+              {...register("image", {
+                required: {
+                  value: true,
+                  message: "Image is required!",
+                },
+              })}
+              type="file"
+              placeholder="Upload image"
+              className="input block input-bordered input-secondary w-full mx-auto my-2"
+            />
+            {imageRef?.current?.files?.length === 0 && (
+              <span className="text-sm text-red-500">
+                Image is required for this
+              </span>
+            )}
+          </label> */}
+          <label
+            htmlFor="image"
+            className="flex items-center bg-white text-gray-400 input  input-bordered input-secondary w-full mx-auto"
+          >
+            <span className="mx-auto">
+              {imageRef?.current?.name || "Add Image"}
+            </span>
+            <input
+              required
+              ref={imageRef}
+              type="file"
+              id="image"
+              name="image"
+              // className=" input input-bordered input-secondary w-full mx-auto my-2"
+            />
           </label>
           <input
             type="submit"
