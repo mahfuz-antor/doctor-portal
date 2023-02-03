@@ -53,8 +53,8 @@ const DashboardLayout = () => {
                         <NavLink
                           className={(navInfo) =>
                             navInfo.isActive
-                              ? "mb-1 p-2 w-full bg-blue-500 text-white block rounded-lg"
-                              : "mb-1 p-2 w-full hover:bg-blue-500 hover:text-white block rounded-lg"
+                              ? "mb-1 p-2 w-full bg-primary text-white block rounded-lg font-medium"
+                              : "mb-1 p-2 w-full hover:bg-primary hover:text-white block rounded-lg"
                           }
                           key={i}
                           to={n.link}
