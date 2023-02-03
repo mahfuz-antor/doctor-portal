@@ -68,7 +68,7 @@ const AddDoctor = () => {
         if (getResponse) {
           toast.success("The doctor details added successfully!");
         } else {
-          toast.warning("Your data do not submit. Try again");
+          toast.error("Your data do not submit. Try again");
         }
       });
   };
@@ -80,11 +80,11 @@ const AddDoctor = () => {
   };
   return (
     <div>
-      <div className="flex justify-between items-center px-5 my-5">
-        <h2 className="text-3xl text-primary font-medium">Add Doctor </h2>
-        <h2 className="text-xl text-primary">Today: {today} </h2>
-      </div>
-      <div className="w-full md:w-2/3 lg:w-1/3 mx-10 grid grid-cols-1 justify-start items-center rounded-lg shadow-lg px-5 md:px-12 lg:px-12 py-5">
+      <div className="w-full md:w-2/3 lg:w-2/4 mx-10 grid grid-cols-1 justify-start items-center rounded-lg shadow-lg px-5 md:px-12 lg:px-12 py-5">
+        <div className="flex justify-between items-center py-3">
+          <h2 className="text-3xl text-primary font-medium">Add Doctor </h2>
+          <h2 className="text-xl text-secondary">Today: {today} </h2>
+        </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-1 gap-4 pt-3"
